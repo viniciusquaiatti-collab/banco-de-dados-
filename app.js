@@ -1,21 +1,22 @@
-/** Arquivo principal do servidor.
- *  Faz a conexão do app com as rotas de cliente.
- */
-
+// Arquivo principal do servidor
 const express = require("express");
 const app = express();
-const { produtoRoutes } = require ("./src/routes/produtoRoutes");
+
+// Importa as Rotas
+const produtoRoutes = require("./src/routes/produtoRoutes");
+const clienteRoutes = require("./src/routes/clienteRoutes");
+
 const PORT = 8081;
 
 app.use(express.json());
-const clienteRoutes = require('./src/routes/clienteRoutes');
 
+// Rotas
 app.use('/', produtoRoutes);
+app.use('/clientes', clienteRoutes);
 
-app.use('/clientes', clienteRoutes); // Todas as rotas de clientes usam o prefixo /clientes
-
-module.exports = app;
-
-app.listen(PORT, ()=> {
+// Inicia o Servidor
+app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
+
+module.exports = app;
