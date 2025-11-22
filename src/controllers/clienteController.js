@@ -41,7 +41,12 @@ const clienteController = {
         } catch (error) {
             res.status(500).json({ erro: 'Erro ao cadastrar cliente' });
         }
+    },
+    criarClientes: async (req, res) => {
+    console.log("Recebido do Insomnia:", req.body);
+    const { nomeCliente, cpfCliente } = req.body;
     }
-};
+
+}
 
 module.exports = clienteController;

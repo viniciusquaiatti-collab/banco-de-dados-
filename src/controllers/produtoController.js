@@ -101,7 +101,29 @@ const produtoController = {
             console.error('Erro ao deletar produto:', error);
             res.status(500).json({ error: 'Erro ao deletar produto' });
         }
+    },
+
+    buscarUmProduto: async (req, res) => {
+    try {
+        const { idProduto } = req.params;
+
+        if (!idProduto || idProduto.length !== 36) {
+            return res.status(400).json({ erro: "id do produto inválido!" });
+        }
+
+        const produto = await produtoModel.buscarUm(idProduto);
+
+        if (!produto || produto.length === 0) {
+            return res.status(404).json({ erro: "Produto não encontrado!" });
+        }
+
+        res.status(200).json(produto[0]);
+    } catch (error) {
+        console.error("Erro ao buscar produto:", error);
+        res.status(500).json({ erro: "Erro ao buscar produto." });
     }
+}
+
 }
 
 module.exports = { produtoController };
